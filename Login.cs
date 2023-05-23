@@ -37,7 +37,8 @@ public partial class Login : System.Web.UI.Page
         if (!Xss.Check_Mobile_Number(username))
         {
             const string title = "خطا";
-            const string textError = "<p>شماره همراه نادرست است.</p>";
+            const string textError = "<p>phone number is incorrect.</p>";
+            /*I use send js alert using sweetAlert library*/
             ClientScript.RegisterStartupScript(GetType(), "userIncorrect",
                 "warning('" + title + "','" + textError + "');", true);
             return;
@@ -51,7 +52,7 @@ public partial class Login : System.Web.UI.Page
             {
                 if (chbRemeber.Checked)
                 {
-                    clsSession.StoreInCookie("purewater", "", "UserId", exist.ToString(), DateTime.Now.AddDays(30));
+                    clsSession.StoreInCookie("yourCookieName", "", "UserId", exist.ToString(), DateTime.Now.AddDays(30));
                     clsSession.Current.username = username.ToString();
                 }
                 else
@@ -59,13 +60,13 @@ public partial class Login : System.Web.UI.Page
                     clsSession.Current.username = username.ToString();
                 }
                 Check_Authentication.Visible = true;
-                const string script = "setTimeout(function(){ window.location.href='../../Client/Index'; }, 1100);";
+                const string script = "setTimeout(function(){ window.location.href='Index'; }, 1100);";
                 ScriptManager.RegisterStartupScript(this, GetType(), "hwa", script, true);
             }
             else
             {
-                const string title = "خطا";
-                const string textError = "نام کاربری یا رمز عبور اشتباه است";
+                const string title = "error";
+                const string textError = "username or password is incorrect";
                 ClientScript.RegisterStartupScript(GetType(), "warning", "warning('" + title + "','" + textError + "');", true);
 
             }
